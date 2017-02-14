@@ -1,0 +1,7 @@
+.idea/
+cmake_install.cmake
+cmake-build-debug/
+CMakeFiles/
+cpp_learning
+Makefile
+CMakeCache.txt
