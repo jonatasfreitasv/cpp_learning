@@ -2,6 +2,9 @@
 #include <string.h>
 
 #include "headers/sample.h"
+#include "headers/sample_class.h"
+
+#define HELLO_WORLD "Hello, world!";
 
 //// function prototype example, this real function is declared below
 int sum(int n1, int n2);
@@ -14,7 +17,9 @@ std::string global_sample("Hi, I am a global variable!"); //// this is other way
 
 int main(int argc, char *argv[]) {
 
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << HELLO_WORLD;
+
+    std::cout << std::endl; //// new line
 
     std::cout << global_sample << std::endl;
 
@@ -169,6 +174,7 @@ int main(int argc, char *argv[]) {
 
     std::cout << std::endl;
 
+    // Dinamic memory allocate
     double* any_double = new double;
     *any_double = 77.7;
     std::cout << *any_double << std::endl;
@@ -176,6 +182,94 @@ int main(int argc, char *argv[]) {
     ////
 
     std::cout << std::endl;
+
+    //// Struct
+    typedef struct people
+    {
+        char name[100];
+        std::string lastname;
+        int years;
+        std::string getFullName(){
+
+            std::string fullName;
+            fullName += this->name;
+            fullName += " ";
+            fullName += this->lastname;
+
+            return fullName;
+        };
+
+    private:
+        int credit_card;
+
+    }people;
+
+    people p;
+    strcpy(p.name, "Jonatas");
+    p.lastname = "Vargas";
+    p.years = 28;
+
+    std::cout << p.name << std::endl;
+    std::cout << p.lastname << std::endl;
+    std::cout << p.years << std::endl;
+    std::cout << p.getFullName() << std::endl;
+    ////
+
+    std::cout << std::endl;
+
+    //// About classes
+    class Vehicle {
+        int renavam;
+
+    public:
+        int id;
+        std::string plate;
+        int year;
+
+        Vehicle(int id){
+            this->id = id;
+        }
+
+        int getRenavam(){
+            return this->renavam;
+        }
+
+        int setRenavam(int renavam){
+            this->renavam = renavam;
+            return this->renavam;
+        }
+
+    };
+
+    Vehicle vehicle(1);
+    vehicle.plate = "CYQ-9992";
+    vehicle.year = 2006;
+    vehicle.setRenavam(12345);
+
+    std::cout << vehicle.id << std::endl;
+    std::cout << vehicle.plate << std::endl;
+    std::cout << vehicle.year << std::endl;
+    std::cout << vehicle.getRenavam() << std::endl;
+
+    std::cout << std::endl;
+
+    sn::SampleClass sampleClass;
+    sampleClass.setAny_text("Hi Sample external class with namespace");
+    sampleClass.setAny_int(77);
+
+    std::cout << sampleClass.getAny_text() << std::endl;
+    std::cout << sampleClass.getAny_int() << std::endl;
+    
+    sn::SampleClass* sampleClassPointer;
+    sampleClassPointer = &sampleClass;
+
+    std::cout << sampleClassPointer->getAny_text() << std::endl;
+
+    sampleClassPointer->setAny_text("Now I change this string with pointer!");
+    std::cout << sampleClass.getAny_text() << std::endl;
+    ////
+
+
 
     //// sample in data
     /*
