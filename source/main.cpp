@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string.h>
+#include <string>
 
 #include "headers/sample.h"
 #include "headers/sample_class.h"
@@ -10,10 +10,14 @@
 int sum(int n1, int n2);
 int sum(int n1, int n2, int n3);
 void change_pointer(int* n1);
+
+void hackMyString(std::string & any_string);
 ////
 
 const int GLOBAL_CONST = 77; //// never try to modify this value in next time
 std::string global_sample("Hi, I am a global variable!"); //// this is other way to declare a variable
+
+int sn::SampleClass::total_sample_class = 0;
 
 int main(int argc, char *argv[]) {
 
@@ -251,25 +255,43 @@ int main(int argc, char *argv[]) {
     std::cout << vehicle.year << std::endl;
     std::cout << vehicle.getRenavam() << std::endl;
 
+
     std::cout << std::endl;
 
-    sn::SampleClass sampleClass;
-    sampleClass.setAny_text("Hi Sample external class with namespace");
-    sampleClass.setAny_int(77);
+    sn::SampleClass* _sampleClass = new sn::SampleClass(7);
+    std::cout << _sampleClass->getAny_protected_int() << std::endl;
+    
+    sn::SampleClass* sampleClass = new sn::SampleClass();
+    sampleClass->setAny_text("Hi Sample external class with namespace");
+    sampleClass->setAny_int(77);
 
-    std::cout << sampleClass.getAny_text() << std::endl;
-    std::cout << sampleClass.getAny_int() << std::endl;
+    std::cout << &sampleClass << std::endl;
+    std::cout << sampleClass->getAny_protected_int() << std::endl;
+    std::cout << sampleClass->getAny_text() << std::endl;
+    std::cout << sampleClass->getAny_int() << std::endl;
+    std::cout << sampleClass->getTotalSample() << std::endl;
     
     sn::SampleClass* sampleClassPointer;
-    sampleClassPointer = &sampleClass;
+    sampleClassPointer = sampleClass;
 
     std::cout << sampleClassPointer->getAny_text() << std::endl;
 
     sampleClassPointer->setAny_text("Now I change this string with pointer!");
-    std::cout << sampleClass.getAny_text() << std::endl;
+    std::cout << sampleClass->getAny_text() << std::endl;
+
+    delete sampleClassPointer;
+
+    std::cout << "After delete pointer, sampleClass not exist more." << std::endl;
     ////
 
+    std::cout << std::endl;
 
+    //// About function with memory reference variable
+    std::string secure_string = "My secure string";
+    std::cout << secure_string << std::endl;
+    hackMyString(secure_string);
+    std::cout << secure_string << std::endl;
+    ////
 
     //// sample in data
     /*
@@ -302,5 +324,12 @@ int sum(int n1, int n2, int n3)
 //// sample change pointer function
 void change_pointer(int* n1){
     *n1 = 777;
+}
+////
+
+//// About function with memory reference variable
+void hackMyString(std::string & any_string)
+{
+    any_string = "String hacked by function!";
 }
 ////

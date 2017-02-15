@@ -2,6 +2,28 @@
 
 using namespace sn;
 
+SampleClass::SampleClass() {
+    this->any_protected_int = 777;
+    total_sample_class++;
+}
+
+SampleClass::SampleClass(int any_protected_int) {
+    this->any_protected_int = any_protected_int;
+    total_sample_class++;
+}
+
+SampleClass::~SampleClass() {
+}
+
+int SampleClass::getTotalSample()
+{
+    return total_sample_class;
+}
+
+int SampleClass::getAny_protected_int() {
+    return this->any_protected_int;
+}
+
 int SampleClass::getAny_int() {
     return this->any_int;
 }
