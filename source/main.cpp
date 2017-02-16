@@ -1,8 +1,9 @@
 #include <iostream>
-#include <string>
+#include <fstream>
 
 #include "headers/sample.h"
 #include "headers/sample_class.h"
+#include "headers/inheritance_sample_class.h"
 
 #define HELLO_WORLD "Hello, world!";
 
@@ -291,6 +292,59 @@ int main(int argc, char *argv[]) {
     std::cout << secure_string << std::endl;
     hackMyString(secure_string);
     std::cout << secure_string << std::endl;
+    ////
+
+    std::cout << std::endl;
+
+    //// About inheritance
+    sn::InheritanceSampleClass* inheritance = new sn::InheritanceSampleClass();
+
+    inheritance->setInheritanceInt(10);
+    inheritance->setAny_int(10);
+
+    std::cout << "Simple inheritance class example = " << inheritance->getInheritanceInt() << std::endl;
+    ////
+
+    std::cout << std::endl;
+
+    //// About fstream
+    std::fstream* output = new std::fstream();
+    output->open("fstream.txt", std::fstream::out);
+    std::cout << "File stream is: " << output->is_open() << std::endl;
+    const char* text = "Haaaaaa";
+    output->write(text, 4);
+    output->close();
+    std::cout << "File stream, after close is: " << output->is_open() << std::endl;
+    delete output;
+
+    //TODO: Have bug
+    std::fstream* readFile = new std::fstream();
+    readFile->open("fstream.txt");
+    char file_text = readFile->get();
+    std::string text_string;
+    text_string.push_back(file_text);
+
+    while(readFile->good()){
+        file_text = readFile->get();
+        text_string.push_back(file_text);
+    }
+
+    std::cout << text_string << std::endl;
+    ////
+
+    std::cout << std::endl;
+
+    //// About errors
+    try {
+        throw "Any error now";
+    }
+    catch (const char* e)
+    {
+        std::cerr << e << std::endl;
+    }
+    catch(...){
+        std::cerr << "Unexpected error!" << std::endl;
+    }
     ////
 
     //// sample in data
